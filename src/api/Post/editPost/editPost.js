@@ -8,7 +8,7 @@ export default {
             const { id, caption, location, action } = args;
             const { user } = request;
             const post = await prisma.$exists.post({ id, user: { id: user.id } });
-            console.log(post);
+            
             if (post) {
                 if (action === "EDIT") {
                     return prisma.updatePost({data :{caption, location}, where:{id}})

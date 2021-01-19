@@ -4,6 +4,8 @@ export const USER_FRAGMENT = `
     firstName
     lastName
     avatar
+    createdAt
+    updatedAt
 `;
 
 export const COMMENT_FRAGMENT = `
@@ -12,11 +14,15 @@ export const COMMENT_FRAGMENT = `
     user {
         ${USER_FRAGMENT}
     }
+    createdAt
+    updatedAt
 `;
 
 export const FILE_FRAGMENT = `
     id
     url
+    createdAt
+    updatedAt
 `;
 
 export const MESSAGE_FRAGMENT = `
@@ -28,6 +34,8 @@ export const MESSAGE_FRAGMENT = `
     from {
         ${USER_FRAGMENT}
     }
+    createdAt
+    updatedAt
 `;
 
 export const FULL_POST_FRAGMENT = `
@@ -49,7 +57,9 @@ export const FULL_POST_FRAGMENT = `
           user{
             ${USER_FRAGMENT}
           }
-        }       
+        }
+        createdAt
+        updatedAt       
     }
 `;
 
@@ -63,4 +73,6 @@ export const ROOM_FRAGMENT = `
             ${MESSAGE_FRAGMENT}
         }
     }
+    createdAt
+    updatedAt
 `;

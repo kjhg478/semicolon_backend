@@ -7,8 +7,6 @@ import jwt from "jsonwebtoken";
 const MAILGUN_API = process.env.API_KEY;
 const MAILGUN_DOMAIN = process.env.DOMAIN;
 
-
-
 export const generateSecret = () => { 
     const randomNumber = Math.floor(Math.random() * adjectives.length);
     return `${adjectives[randomNumber]} ${nouns[randomNumber]}`;

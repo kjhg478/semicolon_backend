@@ -7,6 +7,7 @@ export default {
             
             const { email, secret } = args;
             const user = await prisma.user({ email });
+            
             if (user.loginSecret === secret) {
                 return generateToken(user.id);
             } else {

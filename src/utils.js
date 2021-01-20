@@ -2,10 +2,9 @@ require('dotenv').config({ path: "./src/.env" });
 import { adjectives, nouns } from './words';
 import nodemailer from 'nodemailer';
 import mgTransport from 'nodemailer-mailgun-transport';
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
-const MAILGUN_API = process.env.API_KEY;
-const MAILGUN_DOMAIN = process.env.DOMAIN;
+
 
 export const generateSecret = () => { 
     const randomNumber = Math.floor(Math.random() * adjectives.length);
@@ -26,12 +25,12 @@ export const sendSecretMail = (address, secret) => {
 export const sendMail = email => { 
     const options = {
         auth: {
-            api_key: MAILGUN_API,
-            domain:MAILGUN_DOMAIN
+            api_key: process.env.API_KEY,
+            domain:process.env.DOMAIN
         },
     }
     const client = nodemailer.createTransport(mgTransport(options));
     return client.sendMail(email);
 };
 
-export const generateToken = id => jwt.sign({ id }, process.env.JWT_SECRET);
+export const generateToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET);

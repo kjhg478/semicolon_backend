@@ -2,6 +2,7 @@ type Query {
   me: UserProfile!
 }
 
+# usefragment
 # type Query {
 #   me: User!
 # }

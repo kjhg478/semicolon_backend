@@ -2,20 +2,23 @@ type User {
   id: ID!
   username: String!
   email: String!
-  avatar: String
   firstName: String
   lastName: String
   fullName: String
-  bio: String
+  avatar: String!
   isFollowing: Boolean!
   isSelf: Boolean!
+  bio: String
   following: [User!]!
   followers: [User!]!
+  followingCount: Int!
+  followersCount: Int!
   posts: [Post!]!
+  postsCount: Int!
   likes: [Like!]!
   comments: [Comment!]!
   rooms: [Room!]!
-  loginSecret: String
+  loginSecret: String!
   createdAt: String
   updatedAt: String
 }
@@ -29,6 +32,7 @@ type Post {
   likes: [Like!]!
   comments: [Comment!]!
   isLiked: Boolean!
+  commentCount: Int!
   likeCount: Int!
   createdAt: String
   updatedAt: String
@@ -76,6 +80,7 @@ type Message {
   createdAt: String
   updatedAt: String
 }
+
 type UserProfile {
   user: User!
   posts: [Post!]!

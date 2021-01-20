@@ -1,5 +1,5 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { ROOM_FRAGMENT, USER_FRAGMENT } from "../../../fragments";
+import { ROOM_FRAGMENT } from "../../../fragments";
 import { isAuthenticated } from "../../../middlewares";
 
 export default {
@@ -23,7 +23,7 @@ export default {
         room = await prisma.room({ id: roomId }).$fragment(ROOM_FRAGMENT);
       }
       if (!room) {
-        throw Error("Room not found");
+        throw Error("Woops! Room not found");
       }
       const getTo = room.participants.filter(
         participant => participant.id !== user.id

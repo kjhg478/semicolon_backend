@@ -1,23 +1,26 @@
 import { prisma } from "../../../../generated/prisma-client";
 import { isAuthenticated } from "../../../middlewares"
 
+const EDIT = "EDIT";
+const DELETE = "DELETE";
+
 export default {
     Mutation: {
-        editPost: async (_, args, { request }) => {
+        editPost: async (_, args, { request })=>{
             isAuthenticated(request);
-            const { id, caption, location, action } = args;
             const { user } = request;
-            const post = await prisma.$exists.post({ id, user: { id: user.id } });
-            
+            const { id, location, caption, action } = args;
+            const post = await prisma.$exists.post({ id, user:{id:user.id}});
             if (post) {
-                if (action === "EDIT") {
-                    return prisma.updatePost({data :{caption, location}, where:{id}})
-                } else if (action === "DELETE") {
-                    return prisma.deletePost({id})
+                if (action === EDIT) {
+                    return await prisma.updatePost({ data: { location, caption }, where: { id } });
+                } else if (action === DELETE) {
+                    return await prisma.deletePost({ id });
                 }
-            } else  {
-                throw Error ("You can`t do that !")
+            } else { 
+                throw new Error('당신의 글이 아닙니다 ㅎㅎ');
             }
-        }
+            
+        } 
     }
 }

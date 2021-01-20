@@ -1,37 +1,18 @@
-import { prisma } from  "../../../../generated/prisma-client"
+import { prisma } from "../../../../generated/prisma-client";
+
 export default {
     Mutation: {
         createAccount: async (_, args) => {
-            const { username, email, firstName = "", lastName = "", bio = "" } = args;
-            
-            const exists = await prisma.$exists.user({ user });
-            ({
+            const { username, email, firstName, lastName, bio } = args;
+            const exists = await prisma.$exists.user({
                 OR: [
-                    {
-                        username
-                    },
-                    { email }
-                ]
-            });
+                    { username }, {email}
+            ]});
             if (exists) {
-                throw Error("This username / email is already taken");
-            } 
-            // if (existsEmail) {
-            //     throw Error("This email is already taken");
-            //     retrun;
-            // }
-            // else if (existsName) {
-            //     throw Error("This username is already taken");
-            //     retrun;
-            // }
-             await prisma.createUser({
-                username,
-                email,
-                firstName,
-                lastName,
-                bio
-            });
+                throw Error('Woops! 이미 사용중인 이름 또는 이메일이에요!');
+            }
+            await prisma.createUser({ username, email, firstName, lastName, bio });
             return true;
-        }
-    }
-}
+        } 
+    }  
+};

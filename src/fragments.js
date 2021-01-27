@@ -4,6 +4,8 @@ export const USER_FRAGMENT = `
     lastName
     username
     avatar
+            createdAt
+        updatedAt
 `;
 
 export const COMMENT_FRAGMENT = `
@@ -13,12 +15,16 @@ export const COMMENT_FRAGMENT = `
     user {
         ${USER_FRAGMENT}
     }
+            createdAt
+        updatedAt
 }
 `;
 
 export const FILE_FRAGMENT = `
     id
     url
+            createdAt
+        updatedAt
 `;
 
 
@@ -27,6 +33,9 @@ export const FULL_POST_FRAGMENT = `
         id
         location
         caption
+       
+
+        
         files {
             ${FILE_FRAGMENT}
         }
@@ -42,6 +51,7 @@ export const FULL_POST_FRAGMENT = `
           }
         }
         createdAt
+        updatedAt
     }
 `;
 
@@ -54,6 +64,8 @@ export const MESSAGE_FRAGMENT = `
     from {
         ${USER_FRAGMENT}
     }
+            createdAt
+        updatedAt
 `;
 
 
@@ -67,12 +79,14 @@ export const ROOM_FRAGMENT = `
             ${MESSAGE_FRAGMENT}
         }
     }
+            createdAt
+        updatedAt
 `;
 
 export const SEARCH_FRAGMENT = `
 {
     id
-          files {
+        files {
         id
         url
       }

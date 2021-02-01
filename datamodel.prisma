@@ -8,11 +8,11 @@ type User {
   bio: String
   following: [User!]! @relation(name: "FollowRelation")
   followers: [User!]! @relation(name: "FollowRelation")
-  posts: [Post!]! @relation(name: "PostsofUser", onDelete:CASCADE)
-  likes: [Like!]! @relation(name: "LikesofUser", onDelete:CASCADE)
-  comments: [Comment!]! @relation(name: "CommentsofUser", onDelete:CASCADE)
-  rooms: [Room!]! 
-  loginSecret: String
+  posts: [Post!]! @relation(name:"PostsOfUser", onDelete:CASCADE)
+  likes: [Like!]! @relation(name:"LikesOfUser", onDelete:CASCADE)
+  comments: [Comment!]! @relation(name:"CommentsOfUser", onDelete:CASCADE)
+  rooms: [Room!]!
+  loginSecret:String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -21,27 +21,27 @@ type Post {
   id: ID! @id
   location: String
   caption: String!
-  user: User! @relation(name: "PostsofUser")
-  files: [File!]! @relation(name: "FilesOfPost", onDelete: CASCADE)
-  likes: [Like!]! @relation(name: "LikeOfPost", onDelete: CASCADE)
-  comments: [Comment!]! @relation(name: "CommentOfPost", onDelete:CASCADE)
+  user: User! @relation(name:"PostsOfUser")
+  files: [File!]! @relation(name:"FilesOfPost", onDelete:CASCADE)
+  likes: [Like!]! @relation(name:"LikeOfPost", onDelete:CASCADE)
+  comments: [Comment!]! @relation(name:"CommentsOfPost", onDelete:CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
 
 type Like {
   id: ID! @id
-  user: User! @relation(name: "LikesofUser")
-  post: Post @relation(name: "LikeOfPost")
-  createdAt: DateTime! @createdAt
+  user: User! @relation(name:"LikesOfUser")
+  post: Post! @relation(name:"LikeOfPost")
+   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
 
 type Comment {
   id: ID! @id
   text: String!
-  user: User! @relation(name: "CommentsofUser")
-  post: Post! @relation(name: "CommentOfPost")
+  user: User! @relation(name:"CommentsOfUser")
+  post: Post! @relation(name:"CommentsOfPost")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -49,7 +49,7 @@ type Comment {
 type File {
   id: ID! @id
   url: String!
-  post: Post @relation(name: "FilesOfPost")
+  post: Post! @relation(name:"FilesOfPost")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -71,5 +71,3 @@ type Message {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
-
-

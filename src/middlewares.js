@@ -1,6 +1,6 @@
-export const isAuthenticated = request => {
+export const isAuthenticated = (request) => {
     if (!request.user) {
-        throw Error('woops! 로그인을 먼저 해주세요!');
+        throw Error("You need to log in to perform this action");        
     }
     return;
-};
+}

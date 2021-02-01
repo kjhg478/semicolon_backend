@@ -3,16 +3,16 @@ import multerS3 from "multer-s3";
 import aws from "aws-sdk";
 
 const s3 = new aws.S3({
-    accessKeyId: process.env.AWS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_KEY,
-    region: "ap-northeast-2"
+  accessKeyId: process.env.AWS_ID,
+  secretAccessKey: process.env.AWS_KEY,
+  region: "ap-northeast-2"
 });
 
 const upload = multer({
   storage: multerS3({
     s3,
     acl: "public-read",
-    bucket: "semiapp",
+    bucket: "semicolonsy",
     metadata: function(req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
@@ -21,12 +21,13 @@ const upload = multer({
     }
   })
 });
+
 export const uploadMiddleware = upload.single("file");
 
 export const uploadController = (req, res) => {
   const {
-    file: { loaction }
-    } = req;
-     
-  res.json({ loaction });
+    file: { location }
+  } = req;
+
+  res.json({ location });
 };

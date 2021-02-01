@@ -1,3 +1,0 @@
-type Mutation {
-  delComment(CommentId: String!): Boolean!
-}

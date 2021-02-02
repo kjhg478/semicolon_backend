@@ -6,11 +6,24 @@ export const USER_FRAGMENT = `
     avatar
 `;
 
+export const COMMENTLIKE_FRAGMENT = `
+    id
+    commentLikes
+    user {
+        ${USER_FRAGMENT}
+    }
+`
+
 export const COMMENT_FRAGMENT = `
     id
     text
+    commentLikes
     user {
-        ${USER_FRAGMENT}
+        ${USER_FRAGMENT} {
+            post {
+
+            }
+        }
     }
 `;
 

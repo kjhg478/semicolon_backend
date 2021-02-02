@@ -16,6 +16,7 @@ type User {
   posts: [Post!]!
   likes: [Like!]!
   comments: [Comment!]!
+  commentLikes: [CommentLike!]
   rooms: [Room!]!
   loginSecret: String!
   createdAt: String
@@ -33,7 +34,6 @@ type Post {
   likes: [Like!]!
   comments: [Comment!]!
   isLiked: Boolean!
-  commentLike: Boolean!
   likeCount: Int!
   createdAt: String
   updatedAt: String
@@ -47,11 +47,23 @@ type Like {
   updatedAt: String
 }
 
+type CommentLike {
+  id: ID!
+  user: User!
+  comment: Comment!
+  createdAt: String
+  updatedAt: String
+}
+
 type Comment {
   id: ID!
   text: String!
   user: User!
   post: Post!
+  commentLikes: [CommentLike!]
+  likeCount: Int!
+  commentCount: Int!
+  isCommented: Boolean!
   createdAt: String
   updatedAt: String
 }

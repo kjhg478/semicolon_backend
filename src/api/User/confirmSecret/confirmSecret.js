@@ -5,9 +5,9 @@ export default {
     Mutation: {
         confirmSecret: async (_, args) => {
             const { email, secret } = args;
-            const user = await prisma.user({ email });
+            const user = await prisma.userLogin({ email });
             if (user.loginSecret === secret) {
-                return generateToken(user.id);
+                return secret
             } else {
                 throw Error("이메일이랑 비밀번호랑 다름 🤐");
             }

@@ -1,3 +1,0 @@
-type Mutation {
-  editComment(id: String!, text: String!): Boolean!
-}

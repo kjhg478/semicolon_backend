@@ -1,3 +1,3 @@
 type Subscription {
-  notificateLike(postId: String!): Like
+  notificateLike(postId: String!): Notification
 }

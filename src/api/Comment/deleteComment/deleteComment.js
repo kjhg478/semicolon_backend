@@ -5,7 +5,8 @@ export default {
     Mutation: {
         deleteComment: async (_, args, { request }) => {
             isAuthenticated(request);
-            const { commentId } = args;
+            const { id } = args;
+            console.log(id);
             const { user } = request;
             const filterOption =
             {
@@ -17,7 +18,7 @@ export default {
             try {
                 const existingComment = await prisma.$exists.comment(filterOption);
                 if (existingComment) {
-                    await prisma.deleteComment({commentId});
+                    await prisma.deleteComment({id});
                 }
                 return true;
             }

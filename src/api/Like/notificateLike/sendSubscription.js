@@ -3,16 +3,17 @@ import { isAuthenticated } from "../../../middlewares";
 
 export default {
     Subscription: {
-        notificateLike: {
+        sendSubscription: {
             subscribe: (_, args) => {
-                //isAuthenticated(request);
-                const { postId } = args;
-                return prisma.$subscribe.like({
+                // isAuthenticated(request);
+                const { to } = args;
+                
+                return prisma.$subscribe.notification({
                     AND: [
                         { mutation_in: "CREATED" },
                         {
                             node: {
-                                post: { id: postId }
+                                to: { id: to }
                             }
                         }
                     ]

@@ -18,8 +18,9 @@ type User {
   likes: [Like!]!
   comments: [Comment!]!
   commentLikes: [Comment!]
+  notifications: [Notification]
+  whofollow: [Notification]
   rooms: [Room!]!
-  noties: [Noti!]!
   createdAt: String
   updatedAt: String
   postsCount: Int!
@@ -57,6 +58,7 @@ type Post {
   isLiked: Boolean!
   likeCount: Int!
   createdAt: String
+  notifications: [Notification]
   updatedAt: String
   state: String!
   savedByUser: [User!]
@@ -102,6 +104,7 @@ type Room {
   id: ID!
   participants: [User!]!
   messages: [Message!]!
+  notifications: [Notification]
   createdAt: String
   updatedAt: String
 }
@@ -118,18 +121,11 @@ type Message {
 
 type Notification {
   id: ID!
-  text: String!
-  from: User!
-  to: User!
-  noti: [Noti]!
-  createdAt: String
-  updatedAt: String
-}
-
-type Noti {
-  id: ID!
-  notito: [User!]!
-  notifications: [Notification!]!
+  to: User
+  follow: User
+  message: Room
+  post: Post
+  state: String!
   createdAt: String
   updatedAt: String
 }

@@ -1,0 +1,9 @@
+type Mutation {
+  sendNotificate(
+    to: String!
+    follow: String
+    message: String
+    post: String
+    state: String!
+  ): Notification!
+}

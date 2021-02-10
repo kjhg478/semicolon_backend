@@ -15,9 +15,10 @@ type User {
   commentLikes : [CommentLike!] @relation(name:"CommentLikesOfUser")
   rooms: [Room!]!
   notifications: [Notification] @relation(name:"NotificationOfUser")
-  whofollow : [Notification] @relation(name:"NotificationOfFollow")
+  whofollow : [Notification] @relation(name:"NotificationOfFrom")
   savedPosts: [Post!] @relation(name:"SavedByUser")
   state : String! @default(value: "1")
+  moToken : String!
   stories : [Story!] @relation(name:"StoriesOfUser", onDelete:CASCADE)
   tagedUser : [Story!] @relation(name:"TagOfStory")
   createdAt: DateTime! @createdAt
@@ -114,7 +115,7 @@ type Message {
 type Notification {
   id: ID! @id
   to: User @relation(name:"NotificationOfUser")
-  follow : User @relation(name:"NotificationOfFollow")
+  from : User @relation(name:"NotificationOfFrom")
   message : Room @relation(name:"NotificationOfRoom")
   post : Post @relation(name:"NotificationOfPost")
   createdAt: DateTime! @createdAt

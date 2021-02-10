@@ -28,6 +28,7 @@ type User {
   state: String!
   stories: [Story!]
   tagedUser: [Story!]
+  moToken: String!
 }
 
 type UserLogin {
@@ -122,7 +123,7 @@ type Message {
 type Notification {
   id: ID!
   to: User
-  follow: User
+  from: User
   message: Room
   post: Post
   state: String!

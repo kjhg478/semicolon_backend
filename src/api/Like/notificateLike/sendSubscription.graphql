@@ -1,3 +1,0 @@
-type Subscription {
-  sendSubscription(to: String!): Notification!
-}

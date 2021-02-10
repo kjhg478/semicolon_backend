@@ -7,7 +7,7 @@ export default {
   },
   Notification: {
     to: ({ id }) => prisma.notification({id}).to(),
-    follow: ({ id }) => prisma.notification({ id }).follow(),
+    from: ({ id }) => prisma.notification({ id }).from(),
     message: ({ id }) => prisma.notification({ id }).message(),
     post: ({ id }) => prisma.notification({ id }).post(),
   }

@@ -1,9 +1,10 @@
 type Mutation {
   sendNotificate(
+    username: String!
     to: String!
-    follow: String
+    from: String
     message: String
     post: String
     state: String!
-  ): Notification!
+  ): Boolean!
 }

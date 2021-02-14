@@ -6,7 +6,6 @@ export default {
         deleteComment: async (_, args, { request }) => {
             isAuthenticated(request);
             const { id } = args;
-            console.log(id);
             const { user } = request;
             const filterOption =
             {

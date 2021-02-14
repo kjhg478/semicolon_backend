@@ -6,7 +6,6 @@ export default {
         getNotificate: (_, __, { request }) => {
             isAuthenticated(request);
             const { user } = request;
-            console.log(user)
             return prisma.notifications({
                 where: {
                     to: {

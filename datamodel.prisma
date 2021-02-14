@@ -12,17 +12,25 @@ type User {
   posts: [Post!]! @relation(name:"PostsOfUser", onDelete:CASCADE)
   likes: [Like!]! @relation(name:"LikesOfUser", onDelete:CASCADE)
   comments: [Comment!]! @relation(name:"CommentsOfUser")
-  commentLikes : [CommentLike!] @relation(name:"CommentLikesOfUser")
+  commentLikes : [CommentLike!] @relation(name:"CommentLikesOfUser", onDelete:CASCADE)
   rooms: [Room!]!
-  notifications: [Notification] @relation(name:"NotificationOfUser")
-  whofollow : [Notification] @relation(name:"NotificationOfFrom")
   savedPosts: [Post!] @relation(name:"SavedByUser")
   state : String! @default(value: "1")
-  moToken : String!
   stories : [Story!] @relation(name:"StoriesOfUser", onDelete:CASCADE)
-  tagedUser : [Story!] @relation(name:"TagOfStory")
+  tagedUser : [Story] @relation(name:"TagOfStory")
+  clickedStories : [Story!] @relation(name:"SeeUserOfStory")
+  recommendation: Recommendation @relation(name:"RecommendationOfUser")
+  notifications: [Notification] @relation(name:"NotificationOfUser")
+  whofollow : [Notification] @relation(name:"NotificationOfFrom")
+  moToken : String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+}
+
+type Recommendation{
+  id: ID! @id
+  user : User! @relation(name:"RecommendationOfUser", link:INLINE)
+  post : [Post] @relation(name:"RecommendationOfPost")
 }
 
 type UserLogin{
@@ -33,10 +41,12 @@ type UserLogin{
 
 type Story {
   id:ID! @id
-  files: [File!]!
+  files: File @relation(name:"FilesOfStory", onDelete:CASCADE)
   caption : String
   user : User! @relation(name:"StoriesOfUser")
-  tagUser : [User!] @relation(name:"TagOfStory", onDelete:CASCADE)
+  tagUser : [User] @relation(name:"TagOfStory", onDelete:CASCADE)
+  seenUsers : [User!] @relation(name:"SeeUserOfStory", onDelete:CASCADE)
+  state : String! @default(value: "1")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -45,18 +55,27 @@ type Post {
   id: ID! @id
   location: String
   caption: String!
+  recommendation : [Recommendation] @relation(name:"RecommendationOfPost")
   savedByUser : [User!] @relation(name:"SavedByUser")
   user: User! @relation(name:"PostsOfUser")
   files: [File!]! @relation(name:"FilesOfPost", onDelete:CASCADE)
   likes: [Like!]! @relation(name:"LikeOfPost", onDelete:CASCADE)
   comments: [Comment!]! @relation(name:"CommentsOfPost", onDelete:CASCADE)
-  posts: [Post!]
   state : String! @default(value: "1")
-  hash : [String!]! @scalarList(strategy: RELATION)
-  notifications: [Notification] @relation(name:"NotificationOfPost")
+  hashes : [Hash!] @relation(name:"Hashofpost", onDelete:CASCADE)
+  notifications: [Notification] @relation(name:"NotificationOfPost") 
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
+
+type Hash{
+  id:ID! @id
+  tag: String!
+  post: Post! @relation(name:"Hashofpost")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
 
 type Like {
   id: ID! @id
@@ -69,10 +88,9 @@ type Like {
 type CommentLike {
   id: ID! @id
   user: User! @relation(name:"CommentLikesOfUser")
-  comment: Comment! @relation(name:"CommentOfCommentLike", onDelete:CASCADE)
+  comment: Comment! @relation(name:"CommentOfCommentLike")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-
 }
 
 type Comment {
@@ -88,7 +106,9 @@ type Comment {
 type File {
   id: ID! @id
   url: String!
-  post: Post! @relation(name:"FilesOfPost")
+  type: String @default(value: "image")
+  post: Post @relation(name:"FilesOfPost")
+  story: Story @relation(name:"FilesOfStory", link: INLINE, onDelete:CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -121,4 +141,3 @@ type Notification {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
-

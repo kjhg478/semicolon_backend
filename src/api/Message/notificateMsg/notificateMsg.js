@@ -4,7 +4,7 @@ import { prisma } from "../../../../generated/prisma-client";
 export default {
     Subscription: {
         notificateMsg: {
-            subscribe: (_, args) => {
+            subscribe: (_, args, { request }) => {
                 // 보안필요없을듯
                 // isAuthenticated(request);
                 const { roomId } = args;

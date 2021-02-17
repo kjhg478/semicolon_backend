@@ -8,11 +8,10 @@ export default {
             const { id } = agrs;
 
             try {
-                await prisma.updateManyStories({
-                    data: { state: "0" },
-                    where: {
+                await prisma.deleteManyStories({
+                   
                         user: { id }
-                    }
+                   
                 })
                 return true;
             } catch (e) {
